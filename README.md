@@ -2,6 +2,7 @@
 
 ### Description
 This project demonstrate how to use PrimeNG Datatable lazy load functionality with spring jdbctemplate.
+Project comes with inmemory H2 db. You can find the scripts in "backend/src/main/resources/sql" folder.
 
 
 ### Instruction
