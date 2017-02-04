@@ -14,12 +14,17 @@ import java.util.List;
 @RestController
 public class CustomerController {
 
+
     @Autowired
     private CustomerRepo repo;
 
-    @RequestMapping(value = "/customers/", params = { "page", "size" }, method = RequestMethod.GET)
-    public @ResponseBody  List<Customer> getAllCustomer(@RequestParam( "page" ) int page, @RequestParam( "size" ) int size){
-        return repo.getAllCustomer(page,size);
+    @RequestMapping(value = "/customers/", params = { "page", "size", "sortField","sortOrder" }, method = RequestMethod.GET)
+    public @ResponseBody  List<Customer> getAllCustomer(@RequestParam( "page" ) int page, @RequestParam( "size" ) int size, @RequestParam String sortField, @RequestParam String sortOrder){
+        System.out.println("Sort Field : " + sortField);
+        System.out.println("Sort Order : " + sortOrder);
+        if(sortField == null || sortField.equalsIgnoreCase("undefined")) sortField="CUSTOMER_ID";
+        if(sortField.equalsIgnoreCase("firstName")) sortField="FIRST_NAME";
+        return repo.getAllCustomer(page,size,sortField,sortOrder);
     }
 
     @RequestMapping(value = "/customers/count")

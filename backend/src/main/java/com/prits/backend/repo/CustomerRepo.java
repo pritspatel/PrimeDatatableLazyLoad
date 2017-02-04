@@ -1,6 +1,9 @@
 package com.prits.backend.repo;
 
 import com.prits.backend.entity.Customer;
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.jooq.impl.DSL.field;
+import static org.jooq.impl.DSL.table;
+
+//import static org.jooq.impl.DSL.*;
+
 /**
  * Created by Pritesh Patel on 1/28/2017.
  */
@@ -24,8 +32,8 @@ public class CustomerRepo {
     private JdbcTemplate jdbcTemplate;
 
     @Transactional(readOnly = true)
-    public List<Customer> getAllCustomer(int offSet, int size){
-        String sql = "select * from customer order by customer_id limit " + offSet +"," + size;
+    public List<Customer> getAllCustomer(int offSet, int size, String sortField, String sortOrder){
+        String sql = "select * from customer order by " + sortField + " " + sortOrder +  " limit " + offSet +"," + size;
         List<Customer> customers = new ArrayList<Customer>();
         List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql);
         for (Map row : rows) {
@@ -44,4 +52,6 @@ public class CustomerRepo {
         return this.jdbcTemplate.queryForObject(sql, Integer.class);
 
     }
+
+
 }

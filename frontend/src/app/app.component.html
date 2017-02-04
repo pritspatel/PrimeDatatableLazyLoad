@@ -3,11 +3,12 @@
 </h1>
 <h3 class="first">Customer List</h3>
 
-<p-dataTable [value]="customers" [rows]="10" [totalRecords]="totalRecords" [lazy]="true" [paginator]="true" [pageLinks]="5"
-             [rowsPerPageOptions]="[5,10,20]" (onLazyLoad)="loadCustomersLazy($event)">
+<p-dataTable [value]="customers" [rows]="50" [totalRecords]="totalRecords" [lazy]="true" [paginator]="true" [pageLinks]="5"
+             [rowsPerPageOptions]="[50,100,200]" (onLazyLoad)="loadCustomersLazy($event)" scrollable="true" scrollHeight="200px"
+             [style]="{'margin-top':'30px'}" sortField="customer_id">
     <p-header>List of Cars</p-header>
-    <p-column field="customer_id" header="ID"></p-column>
-    <p-column field="firstName" header="First Name"></p-column>
+    <p-column field="customer_id" header="ID" [sortable]="true"></p-column>
+    <p-column field="firstName" header="First Name" [sortable]="true"></p-column>
     <p-column field="lastName" header="Last Name"></p-column>
     <p-column field="email" header="Email"></p-column>
 

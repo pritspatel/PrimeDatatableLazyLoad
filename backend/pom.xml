@@ -47,10 +47,14 @@
 
         </dependency>
 
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+        </dependency>
 
         <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
 
         <dependency>

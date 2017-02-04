@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
     loadCustomersLazy(event: LazyLoadEvent) {
         console.log('Firing lazy load event...');
         console.log('event.first : %d', event.first);
+        console.log('Event : ', event);
         //in a real application, make a remote request to load data using state metadata from event
         //event.first = First row offset
         //event.rows = Number of rows per page
@@ -40,7 +41,8 @@ export class AppComponent implements OnInit {
 
         //this.page = event.first/event.rows;
         let offSet = event.first;
-        this.custService.getCustomers(offSet , event.rows).subscribe(
+        let orderBy = (event.sortOrder === 1 ? 'ASC' : 'DESC');
+        this.custService.getCustomers(offSet , event.rows, event.sortField, orderBy).subscribe(
             customers => {
                 console.log('Loading cars from backend....')
                 this.customers = customers;
