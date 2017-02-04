@@ -32,8 +32,10 @@ public class CustomerRepo {
     private JdbcTemplate jdbcTemplate;
 
     @Transactional(readOnly = true)
-    public List<Customer> getAllCustomer(int offSet, int size, String sortField, String sortOrder){
-        String sql = "select * from customer order by " + sortField + " " + sortOrder +  " limit " + offSet +"," + size;
+    public List<Customer> getAllCustomer(int offSet, int size, String sortField, String sortOrder,String filterField, String filterValue){
+        //String sql = "select * from customer order by " + sortField + " " + sortOrder +  " limit " + offSet +"," + size;
+        String sql = buildQuery(offSet, size, sortField, sortOrder, filterField, filterValue);
+        System.out.println("******* Query : " + sql);
         List<Customer> customers = new ArrayList<Customer>();
         List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(sql);
         for (Map row : rows) {
@@ -51,6 +53,21 @@ public class CustomerRepo {
         String sql = "select count(*) from customer";
         return this.jdbcTemplate.queryForObject(sql, Integer.class);
 
+    }
+
+    private String buildQuery(int offSet, int size, String sortField, String sortOrder,String filterField, String filterValue){
+        SelectBuilder query = new SelectBuilder()
+                .from("Customer")
+                .column("*");
+        if(filterField != null && !filterField.trim().equalsIgnoreCase("") && filterValue != null && !filterValue.trim().equalsIgnoreCase("")){
+            query.where(filterField + " LIKE '%"+ filterValue.trim()+"%'");
+        }
+        if(sortField != null  && sortOrder != null){
+            query.orderBy(sortField + " " + sortOrder);
+        }
+        String q = query.toString();
+        q = q + " limit " + offSet +"," + size;
+        return q;
     }
 
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CustomerService} from "./customer.service";
 import {Customer} from "./customer.model";
-import {LazyLoadEvent} from "primeng/components/common/api";
+import {LazyLoadEvent, FilterMetadata} from "primeng/components/common/api";
 
 @Component({
     selector: 'app-root',
@@ -42,7 +42,18 @@ export class AppComponent implements OnInit {
         //this.page = event.first/event.rows;
         let offSet = event.first;
         let orderBy = (event.sortOrder === 1 ? 'ASC' : 'DESC');
-        this.custService.getCustomers(offSet , event.rows, event.sortField, orderBy).subscribe(
+        let filterObj = event.filters;
+        console.log('filter by : ', filterObj);
+        console.log('firstName : ', filterObj['firstName']);
+        let fieldName : string = '';
+        let fieldValue : string = '';
+        if(filterObj.hasOwnProperty('firstName')){
+            fieldName = 'FIRST_NAME';
+            fieldValue = filterObj['firstName']['value'];
+            console.log('Name : ', fieldName);
+            console.log('Value : ', fieldValue);
+        }
+        this.custService.getCustomers(offSet , event.rows, event.sortField, orderBy,fieldName,fieldValue).subscribe(
             customers => {
                 console.log('Loading cars from backend....')
                 this.customers = customers;

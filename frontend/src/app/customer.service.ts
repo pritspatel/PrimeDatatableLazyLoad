@@ -10,8 +10,8 @@ export class CustomerService{
     private url = 'http://localhost:9999/api/customers';
     constructor(private _http  : Http){}
 
-    getCustomers(offSet, pageSize, sortField, sortOrder) : Observable<Customer[]>{
-        let finalUrl = this.url + "/?page=" + offSet +"&size=" + pageSize + "&sortField=" + sortField +"&sortOrder=" + sortOrder;
+    getCustomers(offSet, pageSize, sortField, sortOrder, filterField, filterValue) : Observable<Customer[]>{
+        let finalUrl = this.url + "/?page=" + offSet +"&size=" + pageSize + "&sortField=" + sortField +"&sortOrder=" + sortOrder + "&filterField=" + filterField + "&filterValue=" + filterValue;
         return this._http.get(finalUrl)
             .map((res:Response) => res.json())
             //...errors if any

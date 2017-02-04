@@ -18,13 +18,20 @@ public class CustomerController {
     @Autowired
     private CustomerRepo repo;
 
-    @RequestMapping(value = "/customers/", params = { "page", "size", "sortField","sortOrder" }, method = RequestMethod.GET)
-    public @ResponseBody  List<Customer> getAllCustomer(@RequestParam( "page" ) int page, @RequestParam( "size" ) int size, @RequestParam String sortField, @RequestParam String sortOrder){
+    @RequestMapping(value = "/customers/", params = { "page", "size", "sortField","sortOrder","filterField","filterValue" }, method = RequestMethod.GET)
+    public @ResponseBody  List<Customer> getAllCustomer(@RequestParam( "page" ) int page,
+                                                        @RequestParam( "size" ) int size,
+                                                        @RequestParam String sortField,
+                                                        @RequestParam String sortOrder,
+                                                        @RequestParam String filterField,
+                                                        @RequestParam String filterValue){
         System.out.println("Sort Field : " + sortField);
         System.out.println("Sort Order : " + sortOrder);
+        System.out.println("Filter Field : " + filterField);
+        System.out.println("Filter Value : " + filterValue);
         if(sortField == null || sortField.equalsIgnoreCase("undefined")) sortField="CUSTOMER_ID";
         if(sortField.equalsIgnoreCase("firstName")) sortField="FIRST_NAME";
-        return repo.getAllCustomer(page,size,sortField,sortOrder);
+        return repo.getAllCustomer(page,size,sortField,sortOrder, filterField,filterValue);
     }
 
     @RequestMapping(value = "/customers/count")
