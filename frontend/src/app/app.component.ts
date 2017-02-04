@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CustomerService} from "./customer.service";
 import {Customer} from "./customer.model";
 import {LazyLoadEvent, FilterMetadata} from "primeng/components/common/api";
+import {PageRequest} from "./model/page.request.model";
+import {Filter} from "./model/filter.model";
 
 @Component({
     selector: 'app-root',
@@ -53,6 +55,18 @@ export class AppComponent implements OnInit {
             console.log('Name : ', fieldName);
             console.log('Value : ', fieldValue);
         }
+
+        console.log('Building request object');
+        let request : PageRequest = new PageRequest();
+        request._offset = offSet;
+        request._rows = event.rows;
+        request._sortField = event.sortField;
+        request._sortOrder = orderBy;
+        let filter : Filter = new Filter();
+        filter._fieldName = fieldName;
+        filter._fieldValue = fieldValue;
+        //request._filters[0] = filter;
+        console.log("PageRequest : ", request);
         this.custService.getCustomers(offSet , event.rows, event.sortField, orderBy,fieldName,fieldValue).subscribe(
             customers => {
                 console.log('Loading cars from backend....')
