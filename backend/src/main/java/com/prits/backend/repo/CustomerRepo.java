@@ -1,6 +1,10 @@
 package com.prits.backend.repo;
 
+import com.prits.backend.dto.Page;
+import com.prits.backend.dto.PageRequest;
+import com.prits.backend.dto.PaginationHelper;
 import com.prits.backend.entity.Customer;
+import com.prits.backend.mapper.CustomerRowMapper;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -55,6 +59,16 @@ public class CustomerRepo {
 
     }
 
+    /**
+     * Builds select query based on provided data
+     * @param offSet
+     * @param size
+     * @param sortField
+     * @param sortOrder
+     * @param filterField
+     * @param filterValue
+     * @return
+     */
     private String buildQuery(int offSet, int size, String sortField, String sortOrder,String filterField, String filterValue){
         SelectBuilder query = new SelectBuilder()
                 .from("Customer")
@@ -63,12 +77,49 @@ public class CustomerRepo {
             query.where(filterField + " LIKE '%"+ filterValue.trim()+"%'");
         }
         if(sortField != null  && sortOrder != null){
-            query.orderBy(sortField + " " + sortOrder);
+            if(!sortOrder.equalsIgnoreCase("asc")) {
+                query.orderBy(sortField + " " + sortOrder);
+            }
         }
         String q = query.toString();
         q = q + " limit " + offSet +"," + size;
         return q;
     }
 
+    /**
+     * Builds record count query based on provided data
+     * @param offSet
+     * @param size
+     * @param sortField
+     * @param sortOrder
+     * @param filterField
+     * @param filterValue
+     * @return
+     */
+    private String buildCountQuery(int offSet, int size, String sortField, String sortOrder,String filterField, String filterValue){
+        SelectBuilder query = new SelectBuilder()
+                .from("Customer")
+                .column("count(*)");
+        if(filterField != null && !filterField.trim().equalsIgnoreCase("") && filterValue != null && !filterValue.trim().equalsIgnoreCase("")){
+            query.where(filterField + " LIKE '%"+ filterValue.trim()+"%'");
+        }
+       /* if(sortField != null  && sortOrder != null){
+            query.orderBy(sortField + " " + sortOrder);
+        }*/
+       // String q = query.toString();
+       // q = q + " limit " + offSet +"," + size;
+        return query.toString();
+    }
 
+    public Page<Customer> getCustomers(int offSet, int size, String sortField, String sortOrder, String filterField, String filterValue){
+        PaginationHelper helper = new PaginationHelper();
+        String countQuery = buildCountQuery(offSet, size, sortField, sortOrder, filterField, filterValue);
+        String actualQuery = buildQuery(offSet, size, sortField, sortOrder, filterField, filterValue);
+        PageRequest request = new PageRequest(countQuery,actualQuery,offSet,size,null,new CustomerRowMapper());
+        return (Page<Customer>) helper.fetchPage(this.jdbcTemplate,request);
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 }

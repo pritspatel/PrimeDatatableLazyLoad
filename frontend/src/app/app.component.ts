@@ -68,18 +68,5 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.page = 0;
-        /*this.custService.getCustomers(0,10).subscribe(
-            customers => {
-                console.log('Loading cars from backend....');
-                this.datasource = customers;
-                this.totalRecords = this.datasource.length;
-                this.customers = this.datasource.slice(0, 10);
-                console.log('Loading cars from backend completed....');
-            },
-            err => {
-                // Log errors if any
-                console.log(err);
-            }
-        );*/
     }
 }
