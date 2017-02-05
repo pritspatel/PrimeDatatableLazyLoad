@@ -25,8 +25,8 @@ public class CustomerQueryBuilder {
 
         List<SearchCriteria> criteriaList = request.getFilters();
         for(SearchCriteria criteria  : criteriaList){
-            String name = criteria.get_name();
-            String value = criteria.get_value();
+            String name = criteria.getName();
+            String value = criteria.getValue();
 
             //if(StringUtils.isNotBlank(name) && StringUtils.isNotBlank(value)){
             if(name != null && value != null && !name.trim().equalsIgnoreCase("") && !value.trim().equalsIgnoreCase("")){
@@ -48,21 +48,21 @@ public class CustomerQueryBuilder {
                 .column("*");
         List<SearchCriteria> criteriaList = request.getFilters();
         for(SearchCriteria criteria  : criteriaList){
-            String name = criteria.get_name();
-            String value = criteria.get_value();
+            String name = criteria.getName();
+            String value = criteria.getValue();
 
             //if(StringUtils.isNotBlank(name) && StringUtils.isNotBlank(value)){
             if(name != null && value != null && !name.trim().equalsIgnoreCase("") && !value.trim().equalsIgnoreCase("")){
                 query.where(name.trim() + " LIKE '%"+ value.trim()+"%'");
             }
         }
-        if(request.get_sortField() != null  && request.get_sortOrder() != null){
-            if(!request.get_sortOrder().equalsIgnoreCase("asc")) {
-                query.orderBy(request.get_sortField() + " " + request.get_sortOrder());
+        if(request.getSortField() != null  && request.getSortOrder() != null){
+            if(!request.getSortOrder().equalsIgnoreCase("asc")) {
+                query.orderBy(request.getSortField() + " " + request.getSortOrder());
             }
         }
         String q = query.toString();
-        q = q + " limit " + request.get_offSet() +"," + request.get_size();
+        q = q + " limit " + request.getOffSet() +"," + request.getSize();
         return q;
     }
 }

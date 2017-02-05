@@ -10,7 +10,7 @@
     <artifactId>frontend</artifactId>
     <packaging>jar</packaging>
 
-    <_name>frontend</_name>
+    <name>frontend</name>
     <url>http://maven.apache.org</url>
 
     <properties>

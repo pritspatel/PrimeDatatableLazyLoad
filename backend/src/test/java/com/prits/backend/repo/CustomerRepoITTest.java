@@ -54,10 +54,10 @@ public class CustomerRepoITTest {
         dao.setJdbcTemplate(template);
 
         CustomerPageRequest request = new CustomerPageRequest();
-        request.set_offSet(0);
-        request.set_size(10);
-        request.set_sortField("CUSTOMER_ID");
-        request.set_sortOrder("ASC");
+        request.setOffSet(0);
+        request.setSize(10);
+        request.setSortField("CUSTOMER_ID");
+        request.setSortOrder("ASC");
 
         CustomerPageResponse response = dao.searchCustomer(request);
         Assert.assertNotNull(response);
@@ -72,10 +72,10 @@ public class CustomerRepoITTest {
         dao.setJdbcTemplate(template);
 
         CustomerPageRequest request = new CustomerPageRequest();
-        request.set_offSet(0);
-        request.set_size(10);
-        request.set_sortField("CUSTOMER_ID");
-        request.set_sortOrder("ASC");
+        request.setOffSet(0);
+        request.setSize(10);
+        request.setSortField("CUSTOMER_ID");
+        request.setSortOrder("ASC");
 
         SearchCriteria criteria = new SearchCriteria("FIRST_NAME","Seth");
         request.getFilters().add(criteria);

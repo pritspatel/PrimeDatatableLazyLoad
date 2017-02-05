@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>backend</artifactId>
     <packaging>war</packaging>
-    <_name>backend Maven Webapp</_name>
+    <name>backend Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>

@@ -14,15 +14,15 @@
     </bean>
 
     <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
-        <constructor-arg _value="-web,-webAllowOthers,-webDaemon,-webPort,8082" />
+        <constructor-arg value="-web,-webAllowOthers,-webDaemon,-webPort,8082" />
     </bean>
 
     <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
           destroy-method="close">
-        <property _name="driverClassName" _value="com.mysql.jdbc.Driver" />
-        <property _name="url" _value="jdbc:mysql://localhost:3306/sakila" />
-        <property _name="username" _value="root" />
-        <property _name="password" _value="admin" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/sakila" />
+        <property name="username" value="root" />
+        <property name="password" value="admin" />
     </bean>-->
 
 </beans>

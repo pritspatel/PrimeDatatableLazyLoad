@@ -1,51 +1,51 @@
 import {SearchCriteria} from "./search.crtiteria.model";
 export class CustomerSearchRequest{
-    private _offSet : number;
-    private _size : number;
-    private _sortField : string;
-    private _sortOrder  :string;
-    private _filters : SearchCriteria[];
+    private offSet : number;
+    private size : number;
+    private sortField : string;
+    private sortOrder  :string;
+    private filters : SearchCriteria[];
 
     constructor(){}
 
 
-    get offSet(): number {
-        return this._offSet;
+    get _offSet(): number {
+        return this.offSet;
     }
 
-    set offSet(value: number) {
-        this._offSet = value;
+    set _offSet(value: number) {
+        this.offSet = value;
     }
 
-    get size(): number {
-        return this._size;
+    get _size(): number {
+        return this.size;
     }
 
-    set size(value: number) {
-        this._size = value;
+    set _size(value: number) {
+        this.size = value;
     }
 
-    get sortField(): string {
-        return this._sortField;
+    get _sortField(): string {
+        return this.sortField;
     }
 
-    set sortField(value: string) {
-        this._sortField = value;
+    set _sortField(value: string) {
+        this.sortField = value;
     }
 
-    get sortOrder(): string {
-        return this._sortOrder;
+    get _sortOrder(): string {
+        return this.sortOrder;
     }
 
-    set sortOrder(value: string) {
-        this._sortOrder = value;
+    set _sortOrder(value: string) {
+        this.sortOrder = value;
     }
 
-    get filters(): SearchCriteria[] {
-        return this._filters;
+    get _filters(): SearchCriteria[] {
+        return this.filters;
     }
 
-    set filters(value: SearchCriteria[]) {
-        this._filters = value;
+    set _filters(value: SearchCriteria[]) {
+        this.filters = value;
     }
 }

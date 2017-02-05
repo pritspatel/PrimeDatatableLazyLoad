@@ -8,42 +8,42 @@ import java.util.List;
  */
 public class CustomerPageRequest {
 
-    private String _sortField;
-    private String _sortOrder;
-    private int _offSet;
-    private int _size;
+    private String sortField;
+    private String sortOrder;
+    private int offSet;
+    private int size;
     private List<SearchCriteria> filters;
 
-    public String get_sortField() {
-        return _sortField;
+    public String getSortField() {
+        return sortField;
     }
 
-    public void set_sortField(String _sortField) {
-        this._sortField = _sortField;
+    public void setSortField(String _sortField) {
+        this.sortField = _sortField;
     }
 
-    public String get_sortOrder() {
-        return _sortOrder;
+    public String getSortOrder() {
+        return sortOrder;
     }
 
-    public void set_sortOrder(String _sortOrder) {
-        this._sortOrder = _sortOrder;
+    public void setSortOrder(String _sortOrder) {
+        this.sortOrder = _sortOrder;
     }
 
-    public int get_offSet() {
-        return _offSet;
+    public int getOffSet() {
+        return offSet;
     }
 
-    public void set_offSet(int _offSet) {
-        this._offSet = _offSet;
+    public void setOffSet(int _offSet) {
+        this.offSet = _offSet;
     }
 
-    public int get_size() {
-        return _size;
+    public int getSize() {
+        return size;
     }
 
-    public void set_size(int _size) {
-        this._size = _size;
+    public void setSize(int _size) {
+        this.size = _size;
     }
 
     public List<SearchCriteria> getFilters() {
@@ -60,10 +60,10 @@ public class CustomerPageRequest {
     @Override
     public String toString() {
         return "CustomerPageRequest{" +
-                "_sortField='" + _sortField + '\'' +
-                ", _sortOrder='" + _sortOrder + '\'' +
-                ", _offSet=" + _offSet +
-                ", _size=" + _size +
+                "sortField='" + sortField + '\'' +
+                ", sortOrder='" + sortOrder + '\'' +
+                ", offSet=" + offSet +
+                ", size=" + size +
                 ", filters=" + filters +
                 '}';
     }

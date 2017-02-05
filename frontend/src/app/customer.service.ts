@@ -13,7 +13,11 @@ export class CustomerService{
     getCustomers(offSet, pageSize, sortField, sortOrder, filterField, filterValue) : Observable<Customer[]>{
         let finalUrl = this.url + "/?page=" + offSet +"&size=" + pageSize + "&sortField=" + sortField +"&sortOrder=" + sortOrder + "&filterField=" + filterField + "&filterValue=" + filterValue;
         return this._http.get(finalUrl)
-            .map((res:Response) => res.json())
+            .map((res:Response) => {
+                let data = res.json();
+                console.log('Data : ', data);
+                return data;
+            })
             //...errors if any
             .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
