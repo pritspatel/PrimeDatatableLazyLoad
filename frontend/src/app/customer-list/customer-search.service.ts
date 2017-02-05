@@ -12,7 +12,7 @@ export class CustomerSearchService{
 
     constructor(private _http: Http){}
 
-    searchCustomer(searchRequest : CustomerSearchRequest) : Observable<CustomerSearchResponse>{
+    searchCustomer(searchRequest : CustomerSearchRequest) : Observable<any>{
         console.log('Sending search request : ', searchRequest);
         let bodyString = JSON.stringify(searchRequest); // Stringify payload
         let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON

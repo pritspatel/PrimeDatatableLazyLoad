@@ -1,7 +1,7 @@
 <p>
   customer-list works!
 </p>
-<p-dataTable [value]="customers" [rows]="10" [totalRecords]="totalRecords" [lazy]="true" [paginator]="true" [pageLinks]="5"
+<p-dataTable [value]="customers" [rows]="10" [totalRecords]="totalRows" [lazy]="true" [paginator]="true" [pageLinks]="5"
              [rowsPerPageOptions]="[10,20,50]" (onLazyLoad)="loadCustomersLazy($event)" scrollable="true" scrollHeight="200px"
              [style]="{'margin-top':'30px'}" _sortField="customer_id"
 >
