@@ -71,7 +71,13 @@ export class AppComponent implements OnInit {
             customers => {
                 console.log('Loading cars from backend....')
                 this.customers = customers;
-                //this.totalRecords = this.customers.length;
+                if ((filterObj.hasOwnProperty('firstName')) && this.customers.length < this.totalRecords) {
+                    this.totalRecords = this.customers.length;
+                }else {
+                    this.totalRecords = 100;
+                }
+
+
             },
             err => {
                 // Log errors if any
