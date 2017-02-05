@@ -3,7 +3,6 @@ import {CustomerSearchService} from "./customer-search.service";
 import {CustomerSearchRequest} from "../model/customer.search.request.model";
 import {SearchCriteria} from "../model/search.crtiteria.model";
 import {Customer} from "../customer.model";
-import {CustomerService} from "../customer.service";
 import {Observable} from "rxjs";
 import {CustomerSearchResponse} from "../model/customer-search-response.model";
 
@@ -17,7 +16,7 @@ export class CustomerListComponent implements OnInit {
     private totalRows: number = 0;
     private customers: Customer[];
 
-    constructor(private searchService: CustomerSearchService, private custService: CustomerService) {
+    constructor(private searchService: CustomerSearchService) {
     }
 
     ngOnInit() {
