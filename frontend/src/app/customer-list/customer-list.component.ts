@@ -39,9 +39,16 @@ export class CustomerListComponent implements OnInit {
         //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
         //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
 
+        let searchReq = new CustomerSearchRequest();
+        searchReq._offSet = event.first;
+        searchReq._size = event.rows;
+        searchReq._sortField = 'CUSTOMER_ID';
+        searchReq._sortOrder = (event.sortOrder === 1 ? 'ASC' : 'DESC');
+        searchReq._filters = [];
+
+        //Process filter object
         let filterObj = event.filters;
         console.log('filter by : ', filterObj);
-        console.log('firstName : ', filterObj['firstName']);
         let fieldName: string = '';
         let fieldValue: string = '';
         if (filterObj.hasOwnProperty('firstName')) {
@@ -49,19 +56,23 @@ export class CustomerListComponent implements OnInit {
             fieldValue = filterObj['firstName']['value'];
             console.log('Name : ', fieldName);
             console.log('Value : ', fieldValue);
+            let criteria = new SearchCriteria();
+            criteria._name = fieldName;
+            criteria._value = fieldValue;
+            searchReq._filters.push(criteria);
         }
 
-        let searchReq = new CustomerSearchRequest();
-        searchReq._offSet = event.first;
-        searchReq._size = event.rows;
-        searchReq._sortField = 'CUSTOMER_ID';
-        searchReq._sortOrder = (event.sortOrder === 1 ? 'ASC' : 'DESC');
+        if(filterObj.hasOwnProperty('lastName')){
+            fieldName = 'LAST_NAME';
+            fieldValue = filterObj['lastName']['value'];
+            console.log('Name : ', fieldName);
+            console.log('Value : ', fieldValue);
+            let criteria = new SearchCriteria();
+            criteria._name = fieldName;
+            criteria._value = fieldValue;
+            searchReq._filters.push(criteria);
 
-        let criteria = new SearchCriteria();
-        criteria._name = fieldName;
-        criteria._value = fieldValue;
-        searchReq._filters = [];
-        searchReq._filters.push(criteria);
+        }
         this.searchCustomer(searchReq);
     }
 

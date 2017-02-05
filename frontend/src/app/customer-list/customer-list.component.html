@@ -8,7 +8,7 @@
   <p-header>List of Cars</p-header>
   <p-column field="customer_id" header="ID" [sortable]="true"></p-column>
   <p-column field="firstName" header="First Name" [sortable]="true" [filter]="true" filterPlaceholder="firstName" filterMatchMode="contains"></p-column>
-  <p-column field="lastName" header="Last Name"></p-column>
+  <p-column field="lastName" header="Last Name" [filter]="true" filterPlaceholder="LAST_NAME" filterMatchMode="contains"></p-column>
   <p-column field="email" header="Email"></p-column>
 
 </p-dataTable>
