@@ -10,7 +10,9 @@ and PrimeNG Dataload
 ### Instruction
 1. Run ```npm install ``` inside frontend folder
 2. Run ``` ng serve ``` inside frontend folder
-
+3. Deploy backend war in tomcat or anyother servlet container. Frontend is expecting backend available on port 9999.
+   If you have different port for backend then please update frontend service to use correct url to get data from abckend.
+   
 Note : If you get error "No Error" when you run ng serve then please run the following command inside "frontend" folder and then run "ng server"
 and that should resolve the issue.
 
