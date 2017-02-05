@@ -3,15 +3,15 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-_name>Archetype Created Web Application</display-_name>
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
 
   <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/spring/rootContext.xml</param-value>
+    <param-_name>contextConfigLocation</param-_name>
+    <param-_value>/WEB-INF/spring/rootContext.xml</param-_value>
   </context-param>
 
   <listener>
@@ -19,17 +19,17 @@
   </listener>
 
   <servlet>
-    <servlet-name>appServlet</servlet-name>
+    <servlet-_name>appServlet</servlet-_name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/spring/appServlet.xml</param-value>
+      <param-_name>contextConfigLocation</param-_name>
+      <param-_value>/WEB-INF/spring/appServlet.xml</param-_value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>appServlet</servlet-name>
+    <servlet-_name>appServlet</servlet-_name>
     <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
 

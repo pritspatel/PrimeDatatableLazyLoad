@@ -13,12 +13,8 @@ import {Filter} from "./model/filter.model";
 export class AppComponent implements OnInit {
 
     title = 'Prime NG Datatable Lazy Load Demo';
-    private customers: Customer[];
-    totalRecords: number;
-    page: number;
-
     constructor(private custService: CustomerService) {
-        custService.getTotalRecords().subscribe(count => {
+        /*custService.getTotalRecords().subscribe(count => {
                 console.log('Getting total record counts....')
                 this.totalRecords = count;
             },
@@ -26,19 +22,13 @@ export class AppComponent implements OnInit {
                 // Log errors if any
                 console.log(err);
             }
-        );
+        );*/
     }
 
     loadCustomersLazy(event: LazyLoadEvent) {
-        console.log('Firing lazy load event...');
+       /* console.log('Firing lazy load event...');
         console.log('event.first : %d', event.first);
         console.log('Event : ', event);
-        //in a real application, make a remote request to load data using state metadata from event
-        //event.first = First row offset
-        //event.rows = Number of rows per page
-        //event.sortField = Field name to sort with
-        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
-        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
 
 
         //this.page = event.first/event.rows;
@@ -83,10 +73,10 @@ export class AppComponent implements OnInit {
                 // Log errors if any
                 console.log(err);
             }
-        );
+        );*/
     }
 
     ngOnInit(): void {
-        this.page = 0;
+       // this.page = 0;
     }
 }

@@ -7,10 +7,13 @@ import { AppComponent } from './app.component';
 import {CustomerService} from "./customer.service";
 import {DataTableModule} from "primeng/components/datatable/datatable";
 import {PaginatorModule} from "primeng/components/paginator/paginator";
+import { CustomerListComponent } from './customer-list/customer-list.component';
+import {CustomerSearchService} from "./customer-list/customer-search.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomerListComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,7 @@ import {PaginatorModule} from "primeng/components/paginator/paginator";
       DataTableModule,
       PaginatorModule
   ],
-  providers: [CustomerService],
+  providers: [CustomerService,CustomerSearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

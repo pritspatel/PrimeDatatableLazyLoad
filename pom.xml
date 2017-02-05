@@ -11,7 +11,7 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>PrimeNGLazyLoad</name>
+    <_name>PrimeNGLazyLoad</_name>
     <url>http://maven.apache.org</url>
 
     <properties>

@@ -1,8 +1,5 @@
 package com.prits.backend.repo;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.prits.backend.dto.Page;
-import com.prits.backend.entity.Customer;
 import com.prits.backend.vo.CustomerPageRequest;
 import com.prits.backend.vo.CustomerPageResponse;
 import com.prits.backend.vo.SearchCriteria;
@@ -14,8 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-
-import java.util.List;
 
 /**
  * Created by Pritesh Patel on 2/4/2017.
@@ -59,10 +54,10 @@ public class CustomerRepoITTest {
         dao.setJdbcTemplate(template);
 
         CustomerPageRequest request = new CustomerPageRequest();
-        request.setOffSet(0);
-        request.setSize(10);
-        request.setSortField("CUSTOMER_ID");
-        request.setSortOrder("ASC");
+        request.set_offSet(0);
+        request.set_size(10);
+        request.set_sortField("CUSTOMER_ID");
+        request.set_sortOrder("ASC");
 
         CustomerPageResponse response = dao.searchCustomer(request);
         Assert.assertNotNull(response);
@@ -77,10 +72,10 @@ public class CustomerRepoITTest {
         dao.setJdbcTemplate(template);
 
         CustomerPageRequest request = new CustomerPageRequest();
-        request.setOffSet(0);
-        request.setSize(10);
-        request.setSortField("CUSTOMER_ID");
-        request.setSortOrder("ASC");
+        request.set_offSet(0);
+        request.set_size(10);
+        request.set_sortField("CUSTOMER_ID");
+        request.set_sortOrder("ASC");
 
         SearchCriteria criteria = new SearchCriteria("FIRST_NAME","Seth");
         request.getFilters().add(criteria);

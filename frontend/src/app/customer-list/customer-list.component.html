@@ -1,0 +1,14 @@
+<p>
+  customer-list works!
+</p>
+<p-dataTable [_value]="customers" [rows]="50" [totalRecords]="totalRecords" [lazy]="true" [paginator]="true" [pageLinks]="5"
+             [rowsPerPageOptions]="[50,100,200]" (onLazyLoad)="loadCustomersLazy($event)" scrollable="true" scrollHeight="200px"
+             [style]="{'margin-top':'30px'}" _sortField="customer_id"
+>
+  <p-header>List of Cars</p-header>
+  <p-column field="customer_id" header="ID" [sortable]="true"></p-column>
+  <p-column field="firstName" header="First Name" [sortable]="true" [filter]="true" filterPlaceholder="firstName" filterMatchMode="contains"></p-column>
+  <p-column field="lastName" header="Last Name"></p-column>
+  <p-column field="email" header="Email"></p-column>
+
+</p-dataTable>
