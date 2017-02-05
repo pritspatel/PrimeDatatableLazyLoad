@@ -1,7 +1,10 @@
 package com.prits.backend.web;
 
+import com.prits.backend.dto.PageRequest;
 import com.prits.backend.entity.Customer;
 import com.prits.backend.repo.CustomerRepo;
+import com.prits.backend.vo.CustomerPageRequest;
+import com.prits.backend.vo.CustomerPageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -33,6 +36,14 @@ public class CustomerController {
         if(sortField.equalsIgnoreCase("firstName")) sortField="FIRST_NAME";
         return repo.getAllCustomer(page,size,sortField,sortOrder, filterField,filterValue);
     }
+
+
+    @RequestMapping(value = "/customers/search/", method = RequestMethod.POST)
+    public @ResponseBody CustomerPageResponse searchCustomer(@RequestBody CustomerPageRequest custPageRequest){
+        System.out.println(">>>>>>>>>>>>> Request : " + custPageRequest.toString());
+        return repo.searchCustomer(custPageRequest);
+    }
+
 
     @RequestMapping(value = "/customers/count")
     public @ResponseBody Integer getTotalRecords(){

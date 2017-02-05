@@ -1,28 +1,16 @@
 package com.prits.backend.repo;
 
-import com.prits.backend.dto.Page;
-import com.prits.backend.dto.PageRequest;
-import com.prits.backend.dto.PaginationHelper;
 import com.prits.backend.entity.Customer;
-import com.prits.backend.mapper.CustomerRowMapper;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
+import com.prits.backend.vo.CustomerPageRequest;
+import com.prits.backend.vo.CustomerPageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static org.jooq.impl.DSL.field;
-import static org.jooq.impl.DSL.table;
 
 //import static org.jooq.impl.DSL.*;
 
@@ -111,12 +99,33 @@ public class CustomerRepo {
         return query.toString();
     }
 
-    public Page<Customer> getCustomers(int offSet, int size, String sortField, String sortOrder, String filterField, String filterValue){
-        PaginationHelper helper = new PaginationHelper();
-        String countQuery = buildCountQuery(offSet, size, sortField, sortOrder, filterField, filterValue);
-        String actualQuery = buildQuery(offSet, size, sortField, sortOrder, filterField, filterValue);
-        PageRequest request = new PageRequest(countQuery,actualQuery,offSet,size,null,new CustomerRowMapper());
-        return (Page<Customer>) helper.fetchPage(this.jdbcTemplate,request);
+    /**
+     * DAO to execute count query and search query. Combines them in to single response
+     * object for client
+     *
+     * @param customerPageRequest
+     * @return
+     */
+    public CustomerPageResponse searchCustomer(CustomerPageRequest customerPageRequest){
+        //PaginationHelper helper = new PaginationHelper();
+        String countQuery = CustomerQueryBuilder.getCustomerCountQuery(customerPageRequest);
+        String actualQuery = CustomerQueryBuilder.getCustomerSearchRequest(customerPageRequest);
+        //PageRequest request = new PageRequest(countQuery,actualQuery,offSet,size,null,new CustomerRowMapper());
+        //return (Page<Customer>) helper.fetchPage(this.jdbcTemplate,request);
+
+        int totalRows = this.jdbcTemplate.queryForObject(countQuery,Integer.class);
+
+        List<Customer> customers = new ArrayList<Customer>();
+        List<Map<String, Object>> rows = this.jdbcTemplate.queryForList(actualQuery);
+        for (Map row : rows) {
+            Customer c = new Customer((Integer) row.get("CUSTOMER_ID"));
+            c.setFirstName((String) row.get("first_name"));
+            c.setLastName((String) row.get("last_name"));
+            c.setEmail((String) row.get("email"));
+            customers.add(c);
+        }
+
+        return new CustomerPageResponse(totalRows,customers);
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

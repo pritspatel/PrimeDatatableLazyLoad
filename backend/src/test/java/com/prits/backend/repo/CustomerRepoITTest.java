@@ -1,7 +1,11 @@
 package com.prits.backend.repo;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.prits.backend.dto.Page;
 import com.prits.backend.entity.Customer;
+import com.prits.backend.vo.CustomerPageRequest;
+import com.prits.backend.vo.CustomerPageResponse;
+import com.prits.backend.vo.SearchCriteria;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,7 +36,7 @@ public class CustomerRepoITTest {
                 .build();
     }
 
-    @Test
+    /*@Test
     public void testFindByname() {
         JdbcTemplate template = new JdbcTemplate(db);
         dao = new CustomerRepo();
@@ -46,6 +50,45 @@ public class CustomerRepoITTest {
             Assert.assertTrue(c.getCustomer_id()==11);
             break;
         }
+    }*/
+
+    @Test
+    public void testSearchCustomer(){
+        JdbcTemplate template = new JdbcTemplate(db);
+        dao = new CustomerRepo();
+        dao.setJdbcTemplate(template);
+
+        CustomerPageRequest request = new CustomerPageRequest();
+        request.setOffSet(0);
+        request.setSize(10);
+        request.setSortField("CUSTOMER_ID");
+        request.setSortOrder("ASC");
+
+        CustomerPageResponse response = dao.searchCustomer(request);
+        Assert.assertNotNull(response);
+        Assert.assertTrue(response.getTotalRows() > 0);
+        Assert.assertEquals(true, response.getResults().size() == 10);
+    }
+
+    @Test
+    public void shouldReturnOne(){
+        JdbcTemplate template = new JdbcTemplate(db);
+        dao = new CustomerRepo();
+        dao.setJdbcTemplate(template);
+
+        CustomerPageRequest request = new CustomerPageRequest();
+        request.setOffSet(0);
+        request.setSize(10);
+        request.setSortField("CUSTOMER_ID");
+        request.setSortOrder("ASC");
+
+        SearchCriteria criteria = new SearchCriteria("FIRST_NAME","Seth");
+        request.getFilters().add(criteria);
+
+        CustomerPageResponse response = dao.searchCustomer(request);
+        Assert.assertNotNull(response);
+        Assert.assertTrue(response.getTotalRows() > 0);
+        Assert.assertEquals(true, response.getResults().size() == 2);
     }
 
     @After
