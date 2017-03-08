@@ -16,6 +16,8 @@ export class CustomerListComponent implements OnInit {
     private totalRows: number = 0;
     private customers: Customer[];
 
+    private isDirty : boolean = false;
+
     constructor(private searchService: CustomerSearchService) {
     }
 
@@ -38,43 +40,55 @@ export class CustomerListComponent implements OnInit {
         //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
         //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
 
-        let searchReq = new CustomerSearchRequest();
-        searchReq._offSet = event.first;
-        searchReq._size = event.rows;
-        searchReq._sortField = 'CUSTOMER_ID';
-        searchReq._sortOrder = (event.sortOrder === 1 ? 'ASC' : 'DESC');
-        searchReq._filters = [];
+        if(this.isDirty){
+            alert('You have unsaved changes!!!');
+            console.log(event);
+            //event.stopPropagation();
+            //event.originalEvent.stopPropagation();
+        }else {
 
-        //Process filter object
-        let filterObj = event.filters;
-        console.log('filter by : ', filterObj);
-        let fieldName: string = '';
-        let fieldValue: string = '';
-        if (filterObj.hasOwnProperty('firstName')) {
-            fieldName = 'FIRST_NAME';
-            fieldValue = filterObj['firstName']['value'];
-            console.log('Name : ', fieldName);
-            console.log('Value : ', fieldValue);
-            let criteria = new SearchCriteria();
-            criteria._name = fieldName;
-            criteria._value = fieldValue;
-            searchReq._filters.push(criteria);
+            let searchReq = new CustomerSearchRequest();
+            searchReq._offSet = event.first;
+            searchReq._size = event.rows;
+            searchReq._sortField = 'CUSTOMER_ID';
+            searchReq._sortOrder = (event.sortOrder === 1 ? 'ASC' : 'DESC');
+            searchReq._filters = [];
+
+            //Process filter object
+            let filterObj = event.filters;
+            console.log('filter by : ', filterObj);
+            let fieldName: string = '';
+            let fieldValue: string = '';
+            if (filterObj.hasOwnProperty('firstName')) {
+                fieldName = 'FIRST_NAME';
+                fieldValue = filterObj['firstName']['value'];
+                console.log('Name : ', fieldName);
+                console.log('Value : ', fieldValue);
+                let criteria = new SearchCriteria();
+                criteria._name = fieldName;
+                criteria._value = fieldValue;
+                searchReq._filters.push(criteria);
+            }
+
+            if (filterObj.hasOwnProperty('lastName')) {
+                fieldName = 'LAST_NAME';
+                fieldValue = filterObj['lastName']['value'];
+                console.log('Name : ', fieldName);
+                console.log('Value : ', fieldValue);
+                let criteria = new SearchCriteria();
+                criteria._name = fieldName;
+                criteria._value = fieldValue;
+                searchReq._filters.push(criteria);
+
+            }
+            this.searchCustomer(searchReq);
         }
-
-        if(filterObj.hasOwnProperty('lastName')){
-            fieldName = 'LAST_NAME';
-            fieldValue = filterObj['lastName']['value'];
-            console.log('Name : ', fieldName);
-            console.log('Value : ', fieldValue);
-            let criteria = new SearchCriteria();
-            criteria._name = fieldName;
-            criteria._value = fieldValue;
-            searchReq._filters.push(criteria);
-
-        }
-        this.searchCustomer(searchReq);
     }
 
+    updateRecord(event){
+        console.log('edit event fired : ' , event);
+        this.isDirty = true;
+    }
     searchCustomer(sReq: CustomerSearchRequest) {
         console.log('Handling lazy load event...');
         console.log('Search Request : ', sReq);

@@ -3,12 +3,12 @@
 </p>
 <p-dataTable [value]="customers" [rows]="10" [totalRecords]="totalRows" [lazy]="true" [paginator]="true" [pageLinks]="5"
              [rowsPerPageOptions]="[10,20,50]" (onLazyLoad)="loadCustomersLazy($event)" scrollable="true" scrollHeight="200px"
-             [style]="{'margin-top':'30px'}" _sortField="customer_id"
+             [style]="{'margin-top':'30px'}" _sortField="customer_id" [editable]="true" (onEditComplete)="updateRecord($event)"
 >
   <p-header>List of Cars</p-header>
-  <p-column field="customer_id" header="ID" [sortable]="true"></p-column>
-  <p-column field="firstName" header="First Name" [sortable]="true" [filter]="true" filterPlaceholder="firstName" filterMatchMode="contains"></p-column>
-  <p-column field="lastName" header="Last Name" [filter]="true" filterPlaceholder="LAST_NAME" filterMatchMode="contains"></p-column>
-  <p-column field="email" header="Email"></p-column>
+  <p-column field="customer_id" header="ID" [sortable]="true" [editable]="false"></p-column>
+  <p-column field="firstName" header="First Name" [editable]="true" [sortable]="true" [filter]="true" filterPlaceholder="firstName" filterMatchMode="contains"></p-column>
+  <p-column field="lastName" header="Last Name" [editable]="true" [filter]="true" filterPlaceholder="LAST_NAME" filterMatchMode="contains"></p-column>
+  <p-column field="email" header="Email" [editable]="true" ></p-column>
 
 </p-dataTable>
